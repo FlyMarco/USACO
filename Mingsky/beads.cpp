@@ -25,14 +25,20 @@ int main()
         while(beads[(left+n) % n] == 'w') {
             all++;
             left--;
-            if(all >= n) return n;
+            if(all >= n) {
+                fout << n << endl;
+                return 0;
+            }
         }
         colorleft = beads[left];
         left--;
         while(beads[(left+n) % n] == 'w' || beads[(left+n) % n] == colorleft) {
             all++;
             left--;
-            if(all >= n) return n;
+            if(all >= n) {
+                fout << n << endl;
+                return 0;
+            }
         }
 
         int right = i;
@@ -40,14 +46,20 @@ int main()
         while(beads[(right+n) % n] == 'w') {
             all++;
             right++;
-            if(all >= n) return n;
+            if(all >= n) {
+                fout << n << endl;
+                return 0;
+            }
         }
         colorright = beads[right];
         right++;
         while(beads[(right+n) % n] == 'w' || beads[(right+n) % n] == colorright) {
             all++;
             right++;
-            if(all >= n) return n;
+            if(all >= n) {
+                fout << n << endl;
+                return 0;
+            }
         }
         if(all > maxlen) maxlen = all;
     }
