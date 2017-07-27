@@ -21,8 +21,8 @@ class milk2 {
 			in[i][0] = Integer.parseInt(temp.split(" ")[0]);
 			in[i][1] = Integer.parseInt(temp.split(" ")[1]);
 		}
-		int[] out = getResult(N, in);
-		out.println(out[0] + " " + out[1]);
+		int[] result = getResult(N, in);
+		out.println(result[0] + " " + result[1]);
 		
 		out.close();
 	}
@@ -30,29 +30,29 @@ class milk2 {
 	static int[] getResult(int N, int[][] in) {
 		
 		int startExist = in[0][0], endExist = in[0][1], startNo = -1, endNo = -1;
-		int[] out = new int[]{endExist - startExist,0};
+		int[] res = new int[]{endExist - startExist,0};
 		for (int i = 1; i < N; i++) {
 			if ((in[i][0] > endExist || in[i][1] < startExist) ) {
-				if (in[i][1] - in[i][0] > out[0]) {
-					out[0] = in[i][1] - in[i][0];
+				if (in[i][1] - in[i][0] > res[0]) {
+					res[0] = in[i][1] - in[i][0];
 					startExist = in[i][0];
 					endExist = in[i][1];
 				}
 			} else if (in[i][0] <= endExist || in[i][1] >= startExist) {
 				startExist = Math.min(startExist, in[i][0]);
 				endExist = Math.max(endExist, in[i][1]);
-				out[0] = endExist - startExist;
+				res[0] = endExist - startExist;
 			}
 			if (in[i][0] > endExist) {
 				startNo = endExist;
 				endNo = in[i][0];
-				out[1] = Math.max(out[1], endNo - startNo);
+				res[1] = Math.max(res[1], endNo - startNo);
 			} else if (in[i][1] < startExist) {
 				startNo = in[i][1];
 				endNo = startExist;
-				out[1] = Math.max(out[1], endNo - startNo);
+				res[1] = Math.max(res[1], endNo - startNo);
 			}
 		}
-		return out;
+		return res;
 	}
 }
