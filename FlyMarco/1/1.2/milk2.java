@@ -15,42 +15,32 @@ class milk2 {
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("milk2.out")));
 
 		int N = Integer.parseInt(f.readLine());
-		int[] temp = new int[4];
-		int[] result = new int[2];
+		int MAX = 1000000;
+		int START = MAX + 1, END = -1;
+		int[] step = new int[MAX + 1];
 		for (int i = 0; i < N; i++) {
 			String item = f.readLine();
 			int start = Integer.parseInt(item.split(" ")[0]);
 			int end = Integer.parseInt(item.split(" ")[1]);
-			if (i == 0) {
-				result[0] = end - start;
-				temp[0] = start;
-				temp[1] = end;
+			START = START > start ? start : START;
+			END = END > end ? END : end;
+			for (int j = start; j < end; j++) {
+				step[j] = 1;
 			}
-			getResult(result, temp, start, end);
 		}
-		out.println(result[0] + " " + result[1]);
-		
-		out.close();
-	}
+		int MAXEXIST = 0, MAXNO = 0, exist = 0, no = 0;
+		for (int i = START; i < END; i++) {
+			if (step[i] == 1) {
+				exist++;
+				no = 0;
+				MAXEXIST = MAXEXIST > exist ? MAXEXIST : exist;
+			} else {
+				exist = 0;
+				no++;
+				MAXNO = MAXNO > no ? MAXNO : no;
+      }
+		out.println(MAXEXIST + " " + MAXNO);
 
-	static void getResult(int[] res, int[] temp, int start, int end) {
-		if ((start > temp[1] || end < temp[0]) && end - start >= res[0]) {
-			if (start > temp[1]) {
-				temp[2] = temp[1];
-				temp[3] = start;
-				res[1] = Math.max(res[1], temp[3] - temp[2]);
-			} else if (end < temp[0]) {
-				temp[2] = end;
-				temp[3] = temp[0];
-				res[1] = Math.max(res[1], temp[3] - temp[2]);
-			}
-			res[0] = end - start;
-			temp[0] = start;
-			temp[1] = end;
-		} else if (start <= temp[1] || end >= temp[0]) {
-			temp[0] = Math.min(temp[0], start);
-			temp[1] = Math.max(temp[1], end);
-			res[0] = temp[1] - temp[0];
-		}
+		out.close();
 	}
 }
