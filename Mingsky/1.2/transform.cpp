@@ -9,23 +9,40 @@ LANG: C++
 using namespace std;
 const int maxn = 11;
 char A[maxn][maxn], B[maxn][maxn];
-bool One_Rotation(char a[][], char b[][], int n) {
-    
+bool Judge(int n) {
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            if(A[i][j] != B[i][j]) return false;
+        }
+    }
+    return true;
 }
-bool Two_Rotation(char a[][], char b[][], int n) {
+void Rotation(int n) {
+    char temp[n][n];
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            temp[j][n-i-1]=A[i][j];
+        }
+    }
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            A[i][j] = temp[i][j];
+        }
+    }
+}
 
-}
-bool Three_Rotation(char a[][], char b[][], int n) {
-    
-}
-bool Reflection(char a[][], char b[][], int n) {
-    
-}
-bool Combination(char a[][], char b[][], int n) {
-    
-}
-bool Nochange(char a[][], char b[][], int n) {
-    
+void Reflection(int n) {
+    char temp[n][n];
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            temp[i][j] =  A[i][n-j-1];
+        }
+    }
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            A[i][j] = temp[i][j];
+        }
+    }
 }
 int main()
 {
@@ -43,4 +60,48 @@ int main()
             fin >> B[i][j];
         }
     }
+    Rotation(n);
+    if(Judge(n)) {
+        fout << 1 << endl;
+        return 0;
+    }
+    Rotation(n);
+    if(Judge(n)) {
+        fout << 2 << endl;
+        return 0;
+    }
+    Rotation(n);
+    if(Judge(n)) {
+        fout << 3 << endl;
+        return 0;
+    }
+    Rotation(n);
+    Reflection(n);
+    if(Judge(n)) {
+        fout << 4 << endl;
+        return 0;
+    }
+    Rotation(n);
+    if(Judge(n)) {
+        fout << 5 << endl;
+        return 0;
+    }
+    Rotation(n);
+    if(Judge(n)) {
+        fout << 5 << endl;
+        return 0;
+    }
+    Rotation(n);
+    if(Judge(n)) {
+        fout << 5 << endl;
+        return 0;
+    }
+    Rotation(n);
+    Reflection(n);
+    if(Judge(n)) {
+        fout << 6 << endl;
+        return 0;
+    }
+    fout << 7 << endl;
+    return 0;
 }
